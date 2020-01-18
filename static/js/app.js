@@ -3,9 +3,10 @@ var url = "samples.json"
 //comment this out once debugging is complete
 d3.json(url).then(function(data) {
     // console.log(data);
-    console.log(data.names)
+    // console.log(data.names)
   });
 
+  //create the dropdown options
   //read in data from json file 
 d3.json(url).then((jsonData) => {
     //the variable data will be the data from the above json file
@@ -16,25 +17,22 @@ d3.json(url).then((jsonData) => {
     .data(data.names)
     .enter()
     .append('option')
-    .html(function(d) {
-      return `<option value="${d}">${d}</option>`;
-    });
-//todo -- cleanup option tag, if possible 
+    .text(function(d){return d})
+    .attr("value", function(d){return d});
+
 })
 
 
 
 
-
-
-
-
-
 //the updateData function will run when there is a change to the selDataset element
-  d3.selectAll("#selDataset").on("change", updateData);
+d3.selectAll("#selDataset").on("change", updateData);
 
 //create updateData function
 function updateData(){
+    d3.json(url).then(function(data) {
+        console.log(data);
+   
     var selection = d3.select("#selDataset");
     var selectedData = selection.property('value');
 
@@ -43,7 +41,7 @@ function updateData(){
         return data.metadata.id == selectedData
     }
     //filters data based on filterData function
-    var filteredID = data.filter(filterMetaData)
+    var filteredID = data.metadata.filter(filterMetaData)
     //maps the ethnicity based on the filteredID
     var filteredEthnicity = filteredID.map(id => id.ethnicity)
     var filteredGender = filteredID.map(id => id.gender)
@@ -56,4 +54,9 @@ function updateData(){
         return data.samples.id == selectedData
     }
 
+});
 }
+
+
+
+
