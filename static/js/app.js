@@ -31,14 +31,13 @@ d3.selectAll("#selDataset").on("change", updateData);
 //create updateData function
 function updateData(){
     d3.json(url).then(function(data) {
-        console.log(data);
+        // console.log(data);
    
     var selection = d3.select("#selDataset");
     var selectedData = selection.property('value');
-
     //todp -- select data based on the index
-    function filterMetaData(id){
-        return data.metadata.id == selectedData
+    function filterMetaData(abc){
+        return abc.id == selectedData
     }
     //filters data based on filterData function
     var filteredID = data.metadata.filter(filterMetaData)
@@ -53,6 +52,14 @@ function updateData(){
     function filterSamplesData(sample){
         return data.samples.id == selectedData
     }
+    var MetadataSection = d3.select("#sample-metadata")
+    MetadataSection.append("p").text("Ethnicity: " + filteredEthnicity)
+    MetadataSection.append("p").text("Gender: " + filteredGender)
+    MetadataSection.append("p").text('Age: ' + filteredAge)
+    MetadataSection.append('p').text('Location: ' + filteredLocation)
+    MetadataSection.append('p').text("BBtype: " + filteredBBtype)
+    MetadataSection.append('p').text('wfreq: ' + filteredWfreq)
+    // console.log(filteredEthnicity)
 
 });
 }
