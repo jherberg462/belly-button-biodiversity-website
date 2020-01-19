@@ -74,11 +74,11 @@ function updateData(){
     var slicedSample_value = filteredSample_value[0].slice(0, 10)
     var slicedOtu_label = filteredOtu_label[0].slice(0, 10)
 
+    //add "OTU to the Otu_id for the y axis value"
     var slicedOtu_ids = []
     for (i = 0; i < slicedOtu_id.length; i++){
         slicedOtu_ids.push("OTU " + slicedOtu_id[i])
     }
-    console.log(slicedOtu_ids)
     //create bar chart
 
     //data
@@ -93,8 +93,23 @@ var data1 = [trace]
 Plotly.newPlot('bar', data1)
 // console.log(slicedSample_value)
 
+//create bubble chart
+var trace1 = {
+    x: filteredOtu_id[0],
+    y: filteredSample_value[0],
+    mode: 'markers',
+    marker: {
+        color: filteredOtu_id[0]
+    },
+    size: filteredSample_value[0]
+
+};
+var data2 = [trace1]
+Plotly.newPlot('bubble', data2)
+
 });
 }
+
 
 
 
