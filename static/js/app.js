@@ -93,19 +93,42 @@ var data1 = [trace]
 Plotly.newPlot('bar', data1)
 // console.log(slicedSample_value)
 
+
+//add "OTU" to the Out_id for the hover text of bubble chart
+var filteredOtu_ids = []
+for (i = 0; i < filteredOtu_label[0].length; i++){
+    filteredOtu_ids.push("OTU " + filteredOtu_label[0][i])
+}
 //create bubble chart
 var trace1 = {
     x: filteredOtu_id[0],
     y: filteredSample_value[0],
+    text: filteredOtu_ids,
     mode: 'markers',
     marker: {
-        color: filteredOtu_id[0]
+        color: filteredOtu_id[0],
+        size: filteredSample_value[0]
     },
-    size: filteredSample_value[0]
+    
 
 };
 var data2 = [trace1]
 Plotly.newPlot('bubble', data2)
+
+var trace2 = {
+    domain: {x: [0, 1], y: [0, 1]},
+    value: filteredWfreq[0], 
+    title: {text: "Belly Button Washing Frequency - per Week"},
+    type: 'indicator',
+    mode: 'gauge+number',
+    gauge: {
+        axis: {
+            range: [null, 9]
+        }
+    }
+}
+var data3 = [trace2]
+Plotly.newPlot('gauge', data3)
 
 });
 }
@@ -113,9 +136,9 @@ Plotly.newPlot('bubble', data2)
 
 
 
+
 //create updateData function
-function init(){ // consider copying update function after it is done
-    //be sure to change the filterMetaData function to be == to 940
+function init(){
     d3.json(url).then(function(data) {
         // console.log(data);
    
@@ -138,8 +161,9 @@ function init(){ // consider copying update function after it is done
     function filterSamplesData(sample){
         return data.samples.id == selectedData
     }
+
     var MetadataSection = d3.select("#sample-metadata")
-    // ("#sample-metadata").empty()
+    MetadataSection.html('')
     MetadataSection.append("p").text("Ethnicity: " + filteredEthnicity)
     MetadataSection.append("p").text("Gender: " + filteredGender)
     MetadataSection.append("p").text('Age: ' + filteredAge)
@@ -147,6 +171,73 @@ function init(){ // consider copying update function after it is done
     MetadataSection.append('p').text("BBtype: " + filteredBBtype)
     MetadataSection.append('p').text('wfreq: ' + filteredWfreq)
     // console.log(filteredEthnicity)
+    //filter sample data for only the filteredID
+    var filteredSampleId = data.samples.filter(filterMetaData)
+    var filteredOtu_id = filteredSampleId.map(id => id.otu_ids)
+    var filteredSample_value = filteredSampleId.map(id => id.sample_values)
+    var filteredOtu_label = filteredSampleId.map(id => id.otu_labels)
+
+    //slice sample data to get only top 10 
+    //it appears the sample values are already in decending order
+    var slicedOtu_id = filteredOtu_id[0].slice(0,10)
+    var slicedSample_value = filteredSample_value[0].slice(0, 10)
+    var slicedOtu_label = filteredOtu_label[0].slice(0, 10)
+
+    //add "OTU to the Otu_id for the y axis value"
+    var slicedOtu_ids = []
+    for (i = 0; i < slicedOtu_id.length; i++){
+        slicedOtu_ids.push("OTU " + slicedOtu_id[i])
+    }
+    //create bar chart
+
+    //data
+var trace = {
+    y: slicedOtu_ids,
+    x: slicedSample_value,
+    type: 'bar',
+    text: slicedOtu_label, 
+    orientation: 'h'
+}
+var data1 = [trace]
+Plotly.newPlot('bar', data1)
+// console.log(slicedSample_value)
+
+
+//add "OTU" to the Out_id for the hover text of bubble chart
+var filteredOtu_ids = []
+for (i = 0; i < filteredOtu_label[0].length; i++){
+    filteredOtu_ids.push("OTU " + filteredOtu_label[0][i])
+}
+//create bubble chart
+var trace1 = {
+    x: filteredOtu_id[0],
+    y: filteredSample_value[0],
+    text: filteredOtu_ids,
+    mode: 'markers',
+    marker: {
+        color: filteredOtu_id[0],
+        size: filteredSample_value[0]
+    },
+    
+
+};
+var data2 = [trace1]
+Plotly.newPlot('bubble', data2)
+
+var trace2 = {
+    domain: {x: [0, 1], y: [0, 1]},
+    value: filteredWfreq[0], 
+    title: {text: "Belly Button Washing Frequency - per Week"},
+    type: 'indicator',
+    mode: 'gauge+number',
+    gauge: {
+        axis: {
+            range: [null, 9]
+        }
+    }
+}
+var data3 = [trace2]
+Plotly.newPlot('gauge', data3)
 
 });
 }
