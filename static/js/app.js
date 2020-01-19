@@ -35,7 +35,6 @@ function updateData(){
    
     var selection = d3.select("#selDataset");
     var selectedData = selection.property('value');
-    //todp -- select data based on the index
     function filterMetaData(abc){
         return abc.id == selectedData
     }
@@ -144,7 +143,6 @@ function init(){
    
     var selection = d3.select("#selDataset");
     var selectedData = selection.property('value');
-    //todp -- select data based on the index
     function filterMetaData(abc){
         return abc.id == 940
     }
