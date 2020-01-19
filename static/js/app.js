@@ -62,6 +62,36 @@ function updateData(){
     MetadataSection.append('p').text("BBtype: " + filteredBBtype)
     MetadataSection.append('p').text('wfreq: ' + filteredWfreq)
     // console.log(filteredEthnicity)
+    //filter sample data for only the filteredID
+    var filteredSampleId = data.samples.filter(filterMetaData)
+    var filteredOtu_id = filteredSampleId.map(id => id.otu_ids)
+    var filteredSample_value = filteredSampleId.map(id => id.sample_values)
+    var filteredOtu_label = filteredSampleId.map(id => id.otu_labels)
+
+    //slice sample data to get only top 10 
+    //it appears the sample values are already in decending order
+    var slicedOtu_id = filteredOtu_id[0].slice(0,10)
+    var slicedSample_value = filteredSample_value[0].slice(0, 10)
+    var slicedOtu_label = filteredOtu_label[0].slice(0, 10)
+
+    var slicedOtu_ids = []
+    for (i = 0; i < slicedOtu_id.length; i++){
+        slicedOtu_ids.push("OTU " + slicedOtu_id[i])
+    }
+    console.log(slicedOtu_ids)
+    //create bar chart
+
+    //data
+var trace = {
+    y: slicedOtu_ids,
+    x: slicedSample_value,
+    type: 'bar',
+    text: slicedOtu_label, 
+    orientation: 'h'
+}
+var data1 = [trace]
+Plotly.newPlot('bar', data1)
+// console.log(slicedSample_value)
 
 });
 }
@@ -69,7 +99,8 @@ function updateData(){
 
 
 //create updateData function
-function init(){
+function init(){ // consider copying update function after it is done
+    //be sure to change the filterMetaData function to be == to 940
     d3.json(url).then(function(data) {
         // console.log(data);
    
