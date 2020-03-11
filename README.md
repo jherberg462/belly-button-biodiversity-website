@@ -30,6 +30,10 @@ Within the function referenced in step 2 above:
 
 7. Call the function referenced in step 6 above. 
 
+## Datasets used:
+
+https://github.com/jherberg462/belly-button-biodiversity-website/blob/master/templates/samples.json 
+
 ## Deployment/Results
 
 My website is deployed at https://belly-button-biodiversity-jh.herokuapp.com
