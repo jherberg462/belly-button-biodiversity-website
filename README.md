@@ -1,6 +1,6 @@
 # Belly Button Biodiversity
 
-The goal of this project was to use JavaScript, and JavaScript libraries Plotly and D3 to create a webpage that presents interactive visualizations of belly button biodiversity data. The data was provided as a JSON array seperate the file containing JavaScript code. D3 was used to read in the data into my JavaScript scripts, and Python flask endpoints were used to access the data.
+The goal of this project was to use JavaScript, and JavaScript libraries Plotly and D3 to create a webpage that presents interactive visualizations of belly button biodiversity data. The data was provided as a JSON array separate the file containing JavaScript code. D3 was used to read in the data into my JavaScript scripts, and Python flask endpoints were used to access the data.
 
 ## Analysis Questions
 
@@ -14,13 +14,13 @@ The goal of this project was to use JavaScript, and JavaScript libraries Plotly 
 
 ## Tasks
 
-1. Create HTML file with bootstrap rows/columns that match the desired layout, and div tags that my JavaScript code can reference. Use script tags to read in JavaScript code.
+1. Create an HTML file with bootstrap rows/columns that match the desired layout and div tags that my JavaScript code can reference. Use script tags to read in JavaScript code.
 
 2. Within JavaScript, use D3 to read in the file containing the JSON array, and create a function.
 
 Within the function referenced in step 2 above:
 
-3. Use D3 to append each person's sample ID to a drop down by selecting a 'select' tag in the HTML with a specific ID.
+3. Use D3 to append each person's sample ID to a drop-down by selecting a 'select' tag in the HTML with a specific ID.
 
 4. Create an event listener that will call a function when the selection dropdown referenced in step 3 above is changed.
 
